@@ -78,10 +78,14 @@
         }
 
         /* Seção Hero / Principal */
+        /* Seção Hero / Principal com a Logo Transparente ao Fundo */
         .hero {
             margin-top: 70px;
             min-height: 70vh;
-            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1516520773074-4e8455ab3c3b?auto=format&fit=crop&q=80&w=1200') no-repeat center center/cover;
+            /* Busca a logo na pasta imagem, centraliza, cobre o espaço e aplica opacidade via gradiente */
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), 
+                        url('imagem/BC LOGO.jpg') no-repeat center center/contain;
+            background-color: var(--dark-bg); /* Garante o fundo escuro caso a imagem demore a carregar */
             display: flex;
             align-items: center;
             justify-content: center;
