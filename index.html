@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B&C Logística | Cargas e Descargas LTDA</title>
+    <!-- FontAwesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variáveis de Cores Baseadas na Apresentação */
+        :root {
+            --primary-blue: #1e40af;
+            --secondary-green: #16a34a;
+            --dark-bg: #0f172a;
+            --light-bg: #f8fafc;
+            --text-dark: #334155;
+            --text-light: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Menu de Navegação Fixo */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+        }
+        .logo span {
+            color: var(--secondary-green);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--secondary-green);
+        }
+
+        /* Seção Hero / Principal */
+        .hero {
+            margin-top: 70px;
+            min-height: 70vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url('https://images.unsplash.com/photo-1516520773074-4e8455ab3c3b?auto=format&fit=crop&q=80&w=1200') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+        
+        .hero-content h1 span {
+            color: var(--secondary-green);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-cta {
+            background-color: var(--secondary-green);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .btn-cta:hover {
+            background-color: #15803d;
+        }
+
+        /* Estilização Geral das Seções */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            color: var(--primary-blue);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background-color: var(--secondary-green);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Seção Sobre Nós & Pilares */
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            text-align: center;
+            border-top: 4px solid var(--primary-blue);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: var(--secondary-green);
+            margin-bottom: 1rem;
+        }
+
+        /* MVV (Missão, Visão, Valores) */
+        .mvv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            background-color: #0f172a;
+            color: white;
+            padding: 3rem;
+            border-radius: 12px;
+        }
+
+        .mvv-box h3 {
+            color: var(--secondary-green);
+            margin-bottom: 1rem;
+        }
+
+        /* Indicadores / Estatísticas */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .stat-item h2 {
+            font-size: 3rem;
+            color: var(--primary-blue);
+        }
+
+        /* Seção Serviços e Frotas */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        /* Clientes */
+        .client-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .client-item {
+            background: white;
+            padding: 1.5rem 3rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            color: var(--primary-blue);
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Contatos e Rodapé */
+        footer {
+            background-color: #0f172a;
+            color: white;
+            padding: 4rem 2rem 2rem 2rem;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-contact h3 {
+            margin-bottom: 1.5rem;
+            color: var(--secondary-green);
+        }
+
+        .footer-contact p {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-contact a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #334155;
+            padding-top: 2rem;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        /* Responsividade Celular */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none; /* Simplificado para landing page objetiva */
+            }
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Menu Superior -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">B&C <span>LOGÍSTICA</span></div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#sobre">Sobre Nós</a></li>
+                    <li><a href="#servicos">Serviços & Frotas</a></li>
+                    <li><a href="#clientes">Clientes</a></li>
+                    <li><a href="#contato">Contatos</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Banner Principal (Hero) -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>B&C LOGÍSTICA</h1>
+            <p>Cargas e Descargas LTDA. Cuidando da sua operação com segurança, pontualidade e excelência há mais de 10 anos.</p>
+            <a href="#contato" class="btn-cta">Fale Conosco</a>
+        </div>
+    </section>
+
+    <!-- Seção Sobre Nós -->
+    <section id="sobre">
+        <h2 class="section-title">Sobre Nós</h2>
+        <div class="about-grid">
+            <div class="card">
+                <i class="fa-solid fa-bullseye"></i>
+                <h3>Nosso Foco</h3>
+                <p>Adquirir conhecimento e profissionais qualificados para oferecer a melhor experiência aos nossos clientes.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-users"></i>
+                <h3>Nossa Equipe</h3>
+                <p>Corpo gerencial e operacional experiente, garantindo assistência integral em toda a cadeia logística.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-chart-line"></i>
+                <h3>Estabilidade</h3>
+                <p>Mais de 10 anos de atuação no mercado, comprometidos com a confiança e qualidade a cada entrega.</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-lightbulb"></i>
+                <h3>Sua Operação</h3>
+                <p>Mantemos o foco total na qualidade, segurança e excelência customizada do nosso atendimento.</p>
+            </div>
+        </div>
+
+        <!-- Missão, Visão e Valores -->
+        <div class="mvv-grid">
+            <div class="mvv-box">
+                <h3>M I S S Ã O</h3>
+                <p>Realizar o transporte de mercadoria e facilitar as soluções logísticas de nossos clientes, garantindo a qualidade, pontualidade e segurança em todas as nossas operações.</p>
+            </div>
+            <div class="mvv-box">
+                <h3>V I S Ã O</h3>
+                <p>Sermos reconhecidos pelo nosso serviço eficiente e eficaz, nos tornando referência na logística de transporte nas regiões Norte e Nordeste do país.</p>
+            </div>
+            <div class="mvv-box">
+                <h3>V A L O R E S</h3>
+                <p>Valorização do ser humano, redução de custos para a manutenção de preços justos, qualidade no serviço, comprometimento, responsabilidade e pontualidade.</p>
+            </div>
+        </div>
+
+        <!-- Números / Indicadores -->
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h2>+10</h2>
+                <p>Anos de atuação no mercado</p>
+            </div>
+            <div class="stat-item">
+                <h2>+6</h2>
+                <p>Grandes parcerias nacionais</p>
+            </div>
+            <div class="stat-item">
+                <h2>+150k</h2>
+                <p>Pedidos entregues com segurança</p>
+            </div>
+            <div class="stat-item">
+                <h2>+50</h2>
+                <p>Colaboradores no time</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Serviços e Frotas -->
+    <section id="servicos" style="background-color: #f1f5f9; max-width: 100%;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 class="section-title">Serviços & Frotas</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Pontos de Atuação</h3>
+                    <p>Transporte de carga dedicada atendendo estrategicamente as regiões Norte e Nordeste.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Frota Diversificada</h3>
+                    <p>Nossa frota conta com Caminhões 3x4, Trucks e Carretas com Baús Fechados (Câmara Fria e Secos).</p>
+                </div>
+                <div class="service-card">
+                    <h3>Capacidade Operacional</h3>
+                    <p>Atualmente a nossa empresa dispõe de mais de 40 veículos prontos para realizar suas entregas.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Renovação Constante</h3>
+                    <p>Buscamos renovar em média 10% da nossa frota anualmente para garantir máxima confiabilidade.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Principais Clientes -->
+    <section id="clientes">
+        <h2 class="section-title">Principais Clientes</h2>
+        <div class="client-list">
+            <div class="client-item">Grupo Mateus</div>
+            <div class="client-item">Grupo Alvoar</div>
+            <div class="client-item">Grupo Pão de Açúcar</div>
+            <div class="client-item">M. Dias Branco</div>
+            <div class="client-item">IFCO</div>
+            <div class="client-item">Camil Alimentos</div>
+        </div>
+    </section>
+
+    <!-- Rodapé & Seção de Contato -->
+    <footer id="contato">
+        <div class="footer-grid">
+            <div class="footer-contact">
+                <h3>Contate-nos</h3>
+                <p><i class="fa-solid fa-phone"></i> (85) 98844-6641</p>
+                <p><i class="fa-solid fa-envelope"></i> <a href="mailto:reginaldo.bccargas@gmail.com">reginaldo.bccargas@gmail.com</a></p>
+                <p><i class="fa-solid fa-user"></i> Reginaldo Fontenele</p>
+            </div>
+            <div class="footer-contact">
+                <h3>Nossos Benefícios</h3>
+                <p><i class="fa-solid fa-check text-green"></i> Atendimento operacional 24 horas</p>
+                <p><i class="fa-solid fa-check text-green"></i> Monitoramento via sistemas de rastreadores</p>
+                <p><i class="fa-solid fa-check text-green"></i> Redução de custos operacionais globais</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 B&C Logística Cargas e Descargas LTDA. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
