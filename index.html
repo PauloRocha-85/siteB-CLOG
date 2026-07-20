@@ -320,11 +320,222 @@
 </head>
 <body>
 
-    <!-- Menu Superior com o Novo Caminho do Logotipo -->
+   <!-- ADICIONE OU SUBSTITUA ESTES ESTILOS NO SEU <style> -->
+    <style>
+        /* Ajustes específicos para bater com o novo layout da imagem */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(15, 23, 42, 0.6); /* Transparência escura elegante como na foto */
+            backdrop-filter: blur(8px); /* Efeito de vidro fosco moderno */
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0.75rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .nav-right-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .whatsapp-icon-top {
+            color: #25d366;
+            font-size: 1.4rem;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+
+        .whatsapp-icon-top:hover {
+            background-color: rgba(37, 211, 102, 0.1);
+        }
+
+        .btn-top-cta {
+            background-color: #16a34a;
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .btn-top-cta:hover {
+            background-color: #15803d;
+        }
+
+        /* Seção Hero Renovada Baseada na Imagem */
+        .hero {
+            margin-top: 0; /* Começa do topo da tela atrás do menu */
+            min-height: 100vh;
+            /* IMPORTANTE: Salve a imagem enviada como 'banner-hero.jpg' dentro da pasta imagem */
+            background: linear-gradient(rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.7)), 
+                        url('imagem/banner-hero.jpg') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start; /* Alinhado à esquerda como na imagem */
+            text-align: left;
+            padding: 0 10%;
+            color: var(--text-light);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 650px;
+            z-index: 2;
+            margin-top: 4rem;
+        }
+
+        .hero-subtitle {
+            color: #16a34a;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+        }
+
+        /* Botões Duplos */
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-green-cta {
+            background-color: #16a34a;
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s;
+        }
+
+        .btn-green-cta:hover {
+            background-color: #15803d;
+        }
+
+        .btn-outline-cta {
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 0.8rem 1.8rem;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-outline-cta:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: white;
+        }
+
+        /* Grid de Destaques Inferiores (Rodapé do Hero) */
+        .hero-features {
+            display: flex;
+            gap: 3rem;
+            z-index: 2;
+            flex-wrap: wrap;
+            margin-top: auto;
+            padding-bottom: 3rem;
+            width: 100%;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .feature-item i {
+            font-size: 1.8rem;
+            color: #16a34a;
+            border: 1px solid rgba(22, 163, 74, 0.3);
+            padding: 10px;
+            border-radius: 50%;
+            background-color: rgba(22, 163, 74, 0.05);
+        }
+
+        .feature-text h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .feature-text p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 0 5%;
+                justify-content: center;
+            }
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .hero-features {
+                gap: 1.5rem;
+                display: none; /* Esconde no mobile para manter limpo */
+            }
+            .nav-right-actions {
+                display: none;
+            }
+        }
+    </style>
+
+    <!-- SUBSTITUA O BLOCO DO <header> E <section class="hero"> POR ESTE: -->
+
+    <!-- Menu Superior Identificado com a Imagem -->
     <header>
         <div class="nav-container">
             <a href="#home" class="logo">
-                <!-- Alterado para buscar dentro da pasta 'imagem' mantendo as letras maiúsculas/minúsculas corretas -->
                 <img src="imagem/BC LOGO.jpg" alt="Logotipo Oficial B&C Logística" class="logo-img">
             </a>
             <nav>
@@ -332,18 +543,59 @@
                     <li><a href="#sobre">Sobre Nós</a></li>
                     <li><a href="#servicos">Serviços & Frotas</a></li>
                     <li><a href="#clientes">Clientes</a></li>
-                    <li><a href="#contato">Contatos</a></li>
+                    <li><a href="#contato">Contato</a></li>
                 </ul>
             </nav>
+            <div class="nav-right-actions">
+                <!-- Ícone flutuante do WhatsApp redirecionando para o Cleiton (Gerente) por padrão -->
+                <a href="https://wa.me/5585992561797?text=Olá,%20gostaria%20de%20solicitar%20um%20orçamento!" target="_blank" class="whatsapp-icon-top">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </a>
+                <a href="#contato" class="btn-top-cta">Fale Conosco</a>
+            </div>
         </div>
     </header>
 
-    <!-- Banner Principal (Hero) -->
+    <!-- Seção Inicial (Hero) Reestruturada conforme a Imagem -->
     <section class="hero" id="home">
         <div class="hero-content">
-            <h1>B&C LOGÍSTICA</h1>
-            <p>Cargas e Descargas LTDA. Credibilidade e Qualidade. Entre em contato para planejar sua operação ou solicitar uma cotação de serviços.</p>
-            <a href="#contato" class="btn-cta">Fale Conosco</a>
+            <p class="hero-subtitle">Conectando destinos,</p>
+            <h1>ENTREGANDO<br>SOLUÇÕES.</h1>
+            <p>Transporte com segurança, agilidade e eficiência.<br>Soluções logísticas completas para o seu negócio.</p>
+            
+            <div class="hero-buttons">
+                <!-- Direciona para o WhatsApp abrindo em nova aba -->
+                <a href="https://wa.me/5585992561797?text=Olá,%20gostaria%20de%20solicitar%20uma%20cotação!" target="_blank" class="btn-green-cta">
+                    Fale com um Especialista <i class="fa-solid fa-chevron-right"></i>
+                </a>
+                <!-- Rolagem rápida interna para os serviços -->
+                <a href="#servicos" class="btn-outline-cta">Nossos Serviços</a>
+            </div>
+        </div>
+
+        <!-- Três Destaques do Rodapé da Imagem -->
+        <div class="hero-features">
+            <div class="feature-item">
+                <i class="fa-solid fa-shield-halved"></i>
+                <div class="feature-text">
+                    <h4>Segurança</h4>
+                    <p>Cargas 100% protegidas</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-clock"></i>
+                <div class="feature-text">
+                    <h4>Pontualidade</h4>
+                    <p>Entregas no prazo certo</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <div class="feature-text">
+                    <h4>Rastreamento</h4>
+                    <p>Acompanhe em tempo real</p>
+                </div>
+            </div>
         </div>
     </section>
 
