@@ -340,6 +340,60 @@
                 font-size: 2rem;
             }
         }
+        /* Avatar / Mascote Flutuante no Canto da Tela */
+        .mascot-floating-container {
+            position: fixed;
+            bottom: 20px;
+            left: 20px; /* Alinhado à esquerda para não sobrepor o botão do WhatsApp se estiver na direita */
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            pointer-events: none; /* Permite clicar nos elementos atrás se necessário */
+        }
+
+        .mascot-avatar {
+            width: 110px; /* Tamanho do mascote flutuante */
+            height: auto;
+            pointer-events: auto; /* Reativa o clique no mascote */
+            cursor: pointer;
+            
+            /* Remove bordas sólidas e aplica um sombreamento suave na silhueta do personagem */
+            filter: drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.3));
+            
+            /* Animação contínua de flutuação (suave) */
+            animation: floatMascot 4s ease-in-out infinite;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+
+        /* Efeito ao passar o mouse */
+        .mascot-avatar:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0px 12px 20px rgba(22, 163, 74, 0.5)); /* Brilho verde sutil na silhueta */
+        }
+
+        /* Animação CSS para o efeito de flutuar no ar */
+        @keyframes floatMascot {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px); /* Eleva o mascote levemente */
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Oculta ou diminui em telas pequenas de celular para não cobrir o conteúdo */
+        @media (max-width: 480px) {
+            .mascot-avatar {
+                width: 75px;
+            }
+            .mascot-floating-container {
+                bottom: 15px;
+                left: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -813,6 +867,11 @@
             <p>&copy; 2026 B&C Logística Cargas e Descargas LTDA. Todos os direitos reservados.</p>
         </div>
     </footer>
-
+    <!-- Mascote Flutuante no Canto da Tela -->
+    <div class="mascot-floating-container">
+        <a href="https://wa.me/5585992561797?text=Olá!%20Gostaria%20de%20falar%20com%20o%20atendimento." target="_blank" title="Fale conosco no WhatsApp!">
+            <img src="imagem/mascote.png" alt="Mascote B&C Logística" class="mascot-avatar">
+        </a>
+    </div>
 </body>
 </html>
