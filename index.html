@@ -340,60 +340,180 @@
                 font-size: 2rem;
             }
         }
-        /* Avatar / Mascote Flutuante no Canto da Tela */
+        /* ==========================================================================
+           Assistente Virtual Inteligente & Chat Flutuante
+           ========================================================================== */
         .mascot-floating-container {
             position: fixed;
             bottom: 20px;
-            left: 20px; /* Alinhado à esquerda para não sobrepor o botão do WhatsApp se estiver na direita */
-            z-index: 999;
+            left: 20px;
+            z-index: 1000;
             display: flex;
-            align-items: center;
-            pointer-events: none; /* Permite clicar nos elementos atrás se necessário */
+            align-items: flex-end;
+            gap: 12px;
         }
 
         .mascot-avatar {
-            width: 110px; /* Tamanho do mascote flutuante */
+            width: 100px;
             height: auto;
-            pointer-events: auto; /* Reativa o clique no mascote */
             cursor: pointer;
-            
-            /* Remove bordas sólidas e aplica um sombreamento suave na silhueta do personagem */
-            filter: drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.3));
-            
-            /* Animação contínua de flutuação (suave) */
+            filter: drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.35));
             animation: floatMascot 4s ease-in-out infinite;
-            transition: transform 0.3s ease, filter 0.3s ease;
+            transition: transform 0.3s ease;
         }
 
-        /* Efeito ao passar o mouse */
         .mascot-avatar:hover {
-            transform: scale(1.1);
-            filter: drop-shadow(0px 12px 20px rgba(22, 163, 74, 0.5)); /* Brilho verde sutil na silhueta */
+            transform: scale(1.08);
+            filter: drop-shadow(0px 12px 20px rgba(22, 163, 74, 0.5));
         }
 
-        /* Animação CSS para o efeito de flutuar no ar */
+        /* Janela de Chat Flutuante */
+        .chat-widget {
+            display: none; /* Inicia oculto */
+            width: 330px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            overflow: hidden;
+            flex-direction: column;
+            border: 1px solid #e2e8f0;
+            animation: popupChat 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 10px;
+        }
+
+        .chat-widget.active {
+            display: flex;
+        }
+
+        /* Cabeçalho do Chat */
+        .chat-header {
+            background-color: var(--dark-bg);
+            color: white;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 3px solid var(--secondary-green);
+        }
+
+        .chat-header-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-header-info img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: white;
+            padding: 2px;
+        }
+
+        .chat-header-title h4 {
+            font-size: 0.95rem;
+            margin: 0;
+            color: white;
+        }
+
+        .chat-header-title span {
+            font-size: 0.75rem;
+            color: #22c55e;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .chat-close-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .chat-close-btn:hover {
+            color: white;
+        }
+
+        /* Corpo de Mensagens */
+        .chat-body {
+            padding: 15px;
+            max-height: 320px;
+            overflow-y: auto;
+            background-color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-msg {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-size: 0.88rem;
+            line-height: 1.4;
+        }
+
+        .chat-msg.bot {
+            background-color: white;
+            color: var(--text-dark);
+            border: 1px solid #e2e8f0;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        /* Opções Rápidas de Resposta */
+        .chat-options {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 5px;
+        }
+
+        .chat-btn-option {
+            background-color: white;
+            color: var(--primary-blue);
+            border: 1px solid #cbd5e1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-btn-option:hover {
+            background-color: var(--secondary-green);
+            color: white;
+            border-color: var(--secondary-green);
+        }
+
         @keyframes floatMascot {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-12px); /* Eleva o mascote levemente */
-            }
-            100% {
-                transform: translateY(0px);
-            }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
-        /* Oculta ou diminui em telas pequenas de celular para não cobrir o conteúdo */
+        @keyframes popupChat {
+            from { opacity: 0; transform: scale(0.8) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
         @media (max-width: 480px) {
+            .chat-widget {
+                width: 290px;
+            }
             .mascot-avatar {
                 width: 75px;
             }
-            .mascot-floating-container {
-                bottom: 15px;
-                left: 10px;
-            }
         }
+
     </style>
 </head>
 <body>
@@ -867,11 +987,62 @@
             <p>&copy; 2026 B&C Logística Cargas e Descargas LTDA. Todos os direitos reservados.</p>
         </div>
     </footer>
-    <!-- Mascote Flutuante no Canto da Tela -->
+    <!-- Assistente Virtual Flutuante -->
     <div class="mascot-floating-container">
-        <a href="https://wa.me/5585992561797?text=Olá!%20Gostaria%20de%20falar%20com%20o%20atendimento." target="_blank" title="Fale conosco no WhatsApp!">
-            <img src="imagem/mascote.png" alt="Mascote B&C Logística" class="mascot-avatar">
-        </a>
+        
+        <!-- Janela do Chat -->
+        <div class="chat-widget" id="chatWidget">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <img src="imagem/mascote.png" alt="Assistente Virtual B&C">
+                    <div class="chat-header-title">
+                        <h4>Assistente B&C</h4>
+                        <span><i class="fa-solid fa-circle" style="font-size: 8px;"></i> Online Agora</span>
+                    </div>
+                </div>
+                <button class="chat-close-btn" onclick="toggleChat()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="chat-body" id="chatBody">
+                <div class="chat-msg bot">
+                    Olá! 👋 Sou o assistente virtual da **B&C Logística**. Como posso ajudar sua empresa hoje?
+                </div>
+                
+                <div class="chat-options">
+                    <button class="chat-btn-option" onclick="selectOption('Cotação de Frete', '5585992561797')">
+                        🚛 Solicitar Cotação de Frete <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button class="chat-btn-option" onclick="selectOption('Falar com Gerência Operacional', '5585992561797')">
+                        👨‍💼 Cleiton (Gerente Operacional) <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button class="chat-btn-option" onclick="selectOption('Falar com Supervisão', '5585994133782')">
+                        👔 Jocelio (Supervisor) <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button class="chat-btn-option" onclick="selectOption('Atendimento Comercial', '5585988446641')">
+                        💼 Reginaldo Fontenele <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mascote que ativa o chat -->
+        <img src="imagem/mascote.png" alt="Mascote B&C Logística" class="mascot-avatar" id="mascotAvatar" onclick="toggleChat()" title="Clique para abrir o assistente virtual">
     </div>
+    <script>
+        // Função para abrir e fechar a janela do chat
+        function toggleChat() {
+            const chatWidget = document.getElementById('chatWidget');
+            chatWidget.classList.toggle('active');
+        }
+
+        // Função ao selecionar uma das opções do assistente
+        function selectOption(assunto, numero) {
+            // Mensagem dinâmica baseada na escolha
+            const textoMensagem = encodeURIComponent(`Olá! Vim pelo site e gostaria de atendimento sobre: ${assunto}.`);
+            
+            // Redireciona para o WhatsApp correto em nova aba
+            window.open(`https://wa.me/${numero}?text=${textoMensagem}`, '_blank');
+        }
+    </script>
 </body>
 </html>
