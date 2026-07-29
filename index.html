@@ -345,12 +345,13 @@
         /* ==========================================================================
            Assistente Virtual Inteligente & Chat Flutuante
            ========================================================================== */
+        /* Container Flutuante do Mascote e Chat */
         .mascot-floating-container {
             position: fixed;
             bottom: 20px;
             left: 20px;
-            z-index: 1000;
-            display: flex;
+            z-index: 9999; /* Garante que fique por cima de todos os elementos da página */
+            display: flex !important; /* Força a exibição na tela */
             align-items: flex-end;
             gap: 12px;
         }
@@ -359,11 +360,12 @@
             width: 100px;
             height: auto;
             cursor: pointer;
+            display: block !important;
             filter: drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.35));
             animation: floatMascot 4s ease-in-out infinite;
             transition: transform 0.3s ease;
         }
-
+        
         .mascot-avatar:hover {
             transform: scale(1.08);
             filter: drop-shadow(0px 12px 20px rgba(22, 163, 74, 0.5));
