@@ -998,6 +998,7 @@
     <div class="mascot-floating-container">
         
         <!-- Janela do Chat -->
+        <!-- Janela do Chat Flutuante -->
         <div class="chat-widget" id="chatWidget">
             <div class="chat-header">
                 <div class="chat-header-info">
@@ -1011,24 +1012,7 @@
             </div>
 
             <div class="chat-body" id="chatBody">
-                <div class="chat-msg bot">
-                    Olá! 👋 Sou o assistente virtual da **B&C Logística**. Como posso ajudar sua empresa hoje?
-                </div>
-                
-                <div class="chat-options">
-                    <button class="chat-btn-option" onclick="selectOption('Cotação de Frete', '5585992561797')">
-                        🚛 Solicitar Cotação de Frete <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-                    <button class="chat-btn-option" onclick="selectOption('Falar com Gerência Operacional', '5585992561797')">
-                        👨‍💼 Cleiton (Gerente Operacional) <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-                    <button class="chat-btn-option" onclick="selectOption('Falar com Supervisão', '5585994133782')">
-                        👔 Jocelio (Supervisor) <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-                    <button class="chat-btn-option" onclick="selectOption('Atendimento Comercial', '5585988446641')">
-                        💼 Reginaldo Fontenele <i class="fa-solid fa-chevron-right"></i>
-                    </button>
-                </div>
+                <!-- As mensagens e opções serão injetadas e controladas via JavaScript -->
             </div>
         </div>
 
@@ -1036,19 +1020,168 @@
         <img src="imagem/mascote.png" alt="Mascote B&C Logística" class="mascot-avatar" id="mascotAvatar" onclick="toggleChat()" title="Clique para abrir o assistente virtual">
     </div>
     <script>
-        // Função para abrir e fechar a janela do chat
+        // Objeto para armazenar as escolhas da cotação
+        let cotacaoData = {
+            veiculo: '',
+            tipoCarreta: '',
+            destino: ''
+        };
+
+        // Função para abrir/fechar o chat
         function toggleChat() {
             const chatWidget = document.getElementById('chatWidget');
             chatWidget.classList.toggle('active');
+            
+            // Se estiver abrindo e o chat estiver vazio, carrega o menu inicial
+            if (chatWidget.classList.contains('active') && document.getElementById('chatBody').innerHTML.trim() === '') {
+                showMainMenu();
+            }
         }
 
-        // Função ao selecionar uma das opções do assistente
-        function selectOption(assunto, numero) {
-            // Mensagem dinâmica baseada na escolha
-            const textoMensagem = encodeURIComponent(`Olá! Vim pelo site e gostaria de atendimento sobre: ${assunto}.`);
+        // 1. Menu Principal
+        function showMainMenu() {
+            cotacaoData = { veiculo: '', tipoCarreta: '', destino: '' };
+            const chatBody = document.getElementById('chatBody');
+            chatBody.innerHTML = `
+                <div class="chat-msg bot">
+                    Olá! 👋 Sou o assistente virtual da <b>B&C Logística</b>. Como posso ajudar sua empresa hoje?
+                </div>
+                <div class="chat-options">
+                    <button class="chat-btn-option" onclick="startQuoteFlow()">
+                        🚛 Solicitar Cotação de Frete <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button class="chat-btn-option" onclick="directContact('Cleiton (Gerente Op.)', '5585992561797')">
+                        👨‍💼 Cleiton (Gerente Operacional) <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button class="chat-btn-option" onclick="directContact('Jocelio (Supervisor)', '5585994133782')">
+                        👔 Jocelio (Supervisor) <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                    <button class="chat-btn-option" onclick="directContact('Reginaldo Fontenele', '5585988446641')">
+                        💼 Reginaldo Fontenele <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                </div>
+            `;
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // 2. Início da Cotação - Seleção de Veículo
+        function startQuoteFlow() {
+            const chatBody = document.getElementById('chatBody');
+            chatBody.innerHTML += `
+                <div class="chat-msg bot" style="margin-top: 10px;">
+                    Excelente! Para qual <b>tipo de veículo</b> você precisa da cotação?
+                </div>
+                <div class="chat-options" id="veiculoOptions">
+                    <button class="chat-btn-option" onclick="selectVeiculo('Carreta')">🚛 Carreta</button>
+                    <button class="chat-btn-option" onclick="selectVeiculo('Truck')">🚚 Truck</button>
+                    <button class="chat-btn-option" onclick="selectVeiculo('3/4')">🚐 3/4</button>
+                </div>
+            `;
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // 3. Processa escolha do Veículo
+        function selectVeiculo(veiculo) {
+            cotacaoData.veiculo = veiculo;
+            const chatBody = document.getElementById('chatBody');
+
+            if (veiculo === 'Carreta') {
+                chatBody.innerHTML += `
+                    <div class="chat-msg bot" style="margin-top: 10px;">
+                        Qual é o <b>modelo da carreta</b> desejado?
+                    </div>
+                    <div class="chat-options">
+                        <button class="chat-btn-option" onclick="selectCarretaModel('Baú Seca')">📦 Baú Seca</button>
+                        <button class="chat-btn-option" onclick="selectCarretaModel('Baú Frio')">❄️ Baú Frio</button>
+                        <button class="chat-btn-option" onclick="selectCarretaModel('Porta Container')">⚓ Porta Container</button>
+                    </div>
+                `;
+            } else {
+                askDestino();
+            }
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // 3b. Se for Carreta, salva o modelo
+        function selectCarretaModel(modelo) {
+            cotacaoData.tipoCarreta = modelo;
+            askDestino();
+        }
+
+        // 4. Pergunta o Destino
+        function askDestino() {
+            const chatBody = document.getElementById('chatBody');
+            chatBody.innerHTML += `
+                <div class="chat-msg bot" style="margin-top: 10px;">
+                    Qual é a <b>cidade/estado de destino</b> da carga?
+                </div>
+                <div style="display: flex; gap: 5px; margin-top: 8px;">
+                    <input type="text" id="destinoInput" placeholder="Ex: São Paulo / SP" style="width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.85rem;">
+                    <button onclick="submitDestino()" style="background: var(--secondary-green); color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer;">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            `;
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // 5. Salva o Destino e exibe opções de envio (Cleiton ou Jocelio)
+        function submitDestino() {
+            const input = document.getElementById('destinoInput');
+            if (!input.value.trim()) {
+                alert('Por favor, informe a cidade/estado de destino.');
+                return;
+            }
+            cotacaoData.destino = input.value.trim();
+
+            const chatBody = document.getElementById('chatBody');
             
-            // Redireciona para o WhatsApp correto em nova aba
-            window.open(`https://wa.me/${numero}?text=${textoMensagem}`, '_blank');
+            // Monta o resumo
+            let detalheVeiculo = cotacaoData.veiculo;
+            if (cotacaoData.tipoCarreta) {
+                detalheVeiculo += ` (${cotacaoData.tipoCarreta})`;
+            }
+
+            chatBody.innerHTML += `
+                <div class="chat-msg bot" style="margin-top: 10px;">
+                    ✅ <b>Resumo do Pedido:</b><br>
+                    • <b>Veículo:</b> ${detalheVeiculo}<br>
+                    • <b>Destino:</b> ${cotacaoData.destino}<br><br>
+                    Escolha com quem deseja enviar a cotação:
+                </div>
+                <div class="chat-options">
+                    <button class="chat-btn-option" onclick="sendToWhatsapp('5585992561797', 'Cleiton')">
+                        👨‍💼 Enviar para Cleiton (Gerente) <i class="fa-brands fa-whatsapp"></i>
+                    </button>
+                    <button class="chat-btn-option" onclick="sendToWhatsapp('5585994133782', 'Jocelio')">
+                        👔 Enviar para Jocelio (Supervisor) <i class="fa-brands fa-whatsapp"></i>
+                    </button>
+                    <button class="chat-btn-option" onclick="showMainMenu()" style="color: #64748b;">
+                        🔄 Recomeçar
+                    </button>
+                </div>
+            `;
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // 6. Envia os dados formatados para o WhatsApp escolhido
+        function sendToWhatsapp(numero, nomeAtendente) {
+            let detalheVeiculo = cotacaoData.veiculo;
+            if (cotacaoData.tipoCarreta) {
+                detalheVeiculo += ` (${cotacaoData.tipoCarreta})`;
+            }
+
+            const mensagem = `Olá ${nomeAtendente}! Gostaria de uma cotação de frete via site:%0A%0A` +
+                             `🚛 *Veículo:* ${detalheVeiculo}%0A` +
+                             `📍 *Destino:* ${cotacaoData.destino}`;
+
+            window.open(`https://wa.me/${numero}?text=${mensagem}`, '_blank');
+        }
+
+        // Contato Direto Padrão
+        function directContact(nome, numero) {
+            const mensagem = encodeURIComponent(`Olá! Vim pelo site e gostaria de falar com ${nome}.`);
+            window.open(`https://wa.me/${numero}?text=${mensagem}`, '_blank');
         }
     </script>
 </body>
