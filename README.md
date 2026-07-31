@@ -1,25 +1,48 @@
-# siteB-CLOG
+# 🚛 B&C Logística - Website Oficial
 
-# B&C Logística - Website Oficial
+Website institucional moderno e responsivo desenvolvido para a **B&C Logística, Cargas e Descargas LTDA**. O projeto inclui uma apresentação completa dos serviços da empresa, catálogo de frota, clientes atendidos, layout totalmente adaptado para dispositivos móveis e um **Assistente Virtual Inteligente** integrado ao WhatsApp.
 
-Este é o repositório do website oficial da **B&C Logística (Cargas e Descargas LTDA)**[cite: 1]. Um site institucional moderno, simples, objetivo e totalmente responsivo, desenvolvido para apresentar os serviços, frotas, diferenciais e canais de contato da empresa.
+---
 
-## 🚀 Funcionalidades
+## 📸 Recursos e Funcionalidades
 
-*   **Navegação Rápida (Single Page):** Menu fixo com rolagem suave para seções cruciais: *Sobre Nós*, *Serviços e Frotas*, *Clientes* e *Contatos*.
-*   **Identidade Visual Oficial:** Cores e elementos baseados estritamente na apresentação corporativa (tons de azul e verde logístico).
-*   **Galeria de Frota Real:** Seção dedicada com fotos reais da frota operacional (Caminhões 3x4, Trucks e Carretas).
-*   **Seção Hero Customizada:** Banner principal com a logo oficial da empresa integrada ao plano de fundo com transparência para máxima legibilidade do texto.
-*   **Pronto para Mobile:** Design responsivo adaptado para celulares, tablets e computadores.
+- **Menu Fixo Glassmorphism:** Navegação intuitiva com efeito de vidro fosco no topo da página.
+- **Hero Section Reestruturada:** Banner inicial de alto impacto visual com frases de destaque, chamadas para ação (CTA) e destaques de segurança, pontualidade e rastreamento.
+- **Assistente Virtual Inteligente (Mascote Flutuante):**
+  - Chat interativo sem redirecionamento imediato.
+  - Questionário guiado em 3 etapas para cotação de frete (Tipo de veículo, Origem/Destino e Qtd. de entregas).
+  - Direcionamento automatizado do resumo da cotação com texto pré-formatado para os contatos operacionais (**Cleiton** e **Jocelio**).
+  - Opções de contato direto com a equipe via WhatsApp.
+- **Grade Dinâmica de Clientes:** Exibição centralizada dos logotipos dos principais clientes com efeito *hover* e layout responsivo em grid.
+- **Rodapé Informativo:** Acesso direto via ícones do WhatsApp aos responsáveis, e-mail corporativo, dados de CNPJ e endereço institucional.
 
-## 📁 Estrutura do Projeto
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **HTML5:** Estruturação semântica da página.
+- **CSS3:** Estilização moderna, CSS Grid, Flexbox, animações `@keyframes` e media queries para responsividade.
+- **JavaScript (ES6):** Lógica interativa do assistente virtual, controle de estados do formulário e integração com a API do WhatsApp (`https://wa.me/`).
+- **FontAwesome (v6):** Ícones vetoriais da interface e redes sociais.
+
+---
+
+## 📂 Estrutura de Arquivos
 
 ```text
-WEBSITEB-CLOG/
-├── index.html          # Código-fonte principal (HTML, CSS e JS integrados)
-└── imagem/             # Pasta contendo os arquivos de mídia oficiais
-    ├── BC LOGO.jpg     # Logotipo oficial da B&C Logística
-    ├── 4.jpg           # Foto real da frota 1
-    ├── 5.jpg           # Foto real da frota 2
-    ├── 6.jpg           # Foto real da frota 3
-    └── 14.jpg          # Foto real da frota 4
+├── imagem/
+│   ├── BC LOGO.jpg           # Logotipo oficial da empresa
+│   ├── banner-hero.jpg       # Imagem de fundo principal (Caminhão)
+│   ├── mascote.png           # Avatar transparente do Assistente Virtual
+│   ├── favicon.png           # Ícone da aba do navegador
+│   ├── grupo-mateus.jpg      # Logo de cliente
+│   ├── grupo-pao-de-acucar.jpg
+│   ├── m-dias-branco.jpg
+│   ├── ifco-systems.jpg
+│   ├── grupo-alyne.jpg
+│   ├── raymundo-da-fonte.jpg
+│   ├── frosty.jpg
+│   ├── comvap.jpg
+│   └── sao-geraldo.jpg
+├── index.html                # Código-fonte principal (HTML, CSS e JS)
+└── README.md                 # Documentação do projeto
