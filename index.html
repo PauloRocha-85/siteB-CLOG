@@ -677,7 +677,7 @@
             padding-left: 10%;
             padding-right: 10%;
             background: linear-gradient(rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.7)), 
-                        url('imagem/banner-hero.jpg.png') no-repeat center center/cover;
+                        url('imagem/banner-hero.png') no-repeat center center/cover;
             display: flex;
             flex-direction: column;
             justify-content: space-between; /* Distribui o texto no topo/meio e os ícones na base */
@@ -1252,20 +1252,20 @@
         }
 
         // Efeito Mouse Following Background na Seção Hero
-    const heroSection = document.querySelector('.hero');
+        const heroSection = document.querySelector('.hero');
 
-    if (heroSection) {
-        heroSection.addEventListener('mousemove', (e) => {
-            const rect = heroSection.getBoundingClientRect();
-            // Calcula a posição do mouse relativa à seção Hero
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+        if (heroSection) {
+            heroSection.addEventListener('mousemove', (e) => {
+                const rect = heroSection.getBoundingClientRect();
+                // Calcula a posição do mouse relativa à seção Hero
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
 
-            // Atualiza as variáveis CSS da posição do mouse
-            heroSection.style.setProperty('--mouse-x', `${x}px`);
-            heroSection.style.setProperty('--mouse-y', `${y}px`);
-        });
-    }
+                // Atualiza as variáveis CSS da posição do mouse
+                heroSection.style.setProperty('--mouse-x', `${x}px`);
+                heroSection.style.setProperty('--mouse-y', `${y}px`);
+            });
+        }
     </script>
 </body>
 </html>
