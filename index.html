@@ -80,20 +80,37 @@
         }
 
         /* Seção Hero / Principal */
-        /* Seção Hero / Principal com a Logo Transparente ao Fundo */
+        /* Seção Hero com Suporte ao Efeito Mouse Following */
         .hero {
-            margin-top: 70px;
-            min-height: 70vh;
-            /* Busca a logo na pasta imagem, centraliza, cobre o espaço e aplica opacidade via gradiente */
-            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), 
-                        url('imagem/logo\ sf.png') no-repeat center center/contain;
-            background-color: var(--dark-bg); /* Garante o fundo escuro caso a imagem demore a carregar */
+            margin-top: 0;
+            min-height: 100vh;
+            padding-top: 140px; 
+            padding-bottom: 3rem;
+            padding-left: 10%;
+            padding-right: 10%;
+            
+            /* Variáveis padrão do ponto de luz (posição x, y) */
+            --mouse-x: 50%;
+            --mouse-y: 50%;
+
+            /* Camada de iluminação radial que persegue o mouse sobreposta à imagem de fundo */
+            background: 
+                radial-gradient(
+                    600px circle at var(--mouse-x) var(--mouse-y), 
+                    rgba(22, 163, 74, 0.25), 
+                    transparent 80%
+                ),
+                linear-gradient(rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.75)), 
+                url('imagem/banner-hero.jpg') no-repeat center center/cover;
+
             display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            text-align: left;
             color: var(--text-light);
-            padding: 2rem;
+            position: relative;
+            overflow: hidden;
         }
 
         .hero-content h1 {
@@ -1233,6 +1250,22 @@
             const body = document.getElementById('chatBody');
             body.scrollTop = body.scrollHeight;
         }
+
+        // Efeito Mouse Following Background na Seção Hero
+    const heroSection = document.querySelector('.hero');
+
+    if (heroSection) {
+        heroSection.addEventListener('mousemove', (e) => {
+            const rect = heroSection.getBoundingClientRect();
+            // Calcula a posição do mouse relativa à seção Hero
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Atualiza as variáveis CSS da posição do mouse
+            heroSection.style.setProperty('--mouse-x', `${x}px`);
+            heroSection.style.setProperty('--mouse-y', `${y}px`);
+        });
+    }
     </script>
 </body>
 </html>
