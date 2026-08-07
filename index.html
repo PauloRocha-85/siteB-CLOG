@@ -17,6 +17,8 @@
             --light-bg: #f8fafc;
             --text-dark: #334155;
             --text-light: #ffffff;
+            --mouse-x: 50vw;
+            --mouse-y: 50vh;
         }
 
         * {
@@ -88,20 +90,20 @@
             padding-bottom: 3rem;
             padding-left: 10%;
             padding-right: 10%;
-            
-            /* Variáveis padrão do ponto de luz (posição x, y) */
-            --mouse-x: 50%;
-            --mouse-y: 50%;
 
-            /* Camada de iluminação radial que persegue o mouse sobreposta à imagem de fundo */
-            background: 
+            /* Camada 1: Brilho Verde Radial do Mouse | Camada 2: Filtro Escuro | Camada 3: Foto do Banner */
+            background-image: 
                 radial-gradient(
-                    600px circle at var(--mouse-x) var(--mouse-y), 
-                    rgba(22, 163, 74, 0.25), 
+                    500px circle at var(--mouse-x) var(--mouse-y), 
+                    rgba(22, 163, 74, 0.35), 
                     transparent 80%
                 ),
                 linear-gradient(rgba(15, 23, 42, 0.45), rgba(15, 23, 42, 0.75)), 
-                url('imagem/banner-hero.jpg') no-repeat center center/cover;
+                url('imagem/banner-hero.png');
+            
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
 
             display: flex;
             flex-direction: column;
@@ -1251,21 +1253,22 @@
             body.scrollTop = body.scrollHeight;
         }
 
-        // Efeito Mouse Following Background na Seção Hero
-        const heroSection = document.querySelector('.hero');
-
-        if (heroSection) {
-            heroSection.addEventListener('mousemove', (e) => {
-                const rect = heroSection.getBoundingClientRect();
-                // Calcula a posição do mouse relativa à seção Hero
+        // Captura o movimento do mouse na tela inteira
+        window.addEventListener('mousemove', (e) => {
+            const hero = document.querySelector('.hero');
+            if (hero) {
+                const rect = hero.getBoundingClientRect();
+                
+                // Calcula as coordenadas relativas ao container .hero
                 const x = e.clientX - rect.left;
                 const y = e.clientY - rect.top;
 
-                // Atualiza as variáveis CSS da posição do mouse
-                heroSection.style.setProperty('--mouse-x', `${x}px`);
-                heroSection.style.setProperty('--mouse-y', `${y}px`);
-            });
-        }
+                // Atualiza as variáveis CSS globais
+                document.documentElement.style.setProperty('--mouse-x', `${x}px`);
+                document.documentElement.style.setProperty('--mouse-y', `${y}px`);
+            }
+        });
+        
     </script>
 </body>
 </html>
